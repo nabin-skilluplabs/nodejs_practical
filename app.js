@@ -1,7 +1,7 @@
 import { parse } from 'node-html-parser';
 import fs from 'fs';
 
-const url = "https://www.seek.com.au/full-stack-developer-jobs/in-Sydney-NSW-2000";
+const url = "https://www.seek.com.au/web-developer-no-experience-jobs/in-Sydney-NSW-2000";
 
 async function writeToFile(data) {
     console.log('Writing data to file...');
