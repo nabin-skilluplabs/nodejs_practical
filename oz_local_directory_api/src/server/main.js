@@ -1,12 +1,13 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import jobRouter from './routes/job.js';
-import { writeToCodesFile } from "./fileHandler/codeFileHandler.js";
+import { readCodesFromFile, writeToCodesFile } from "./fileHandler/codeFileHandler.js";
 
 const app = express();
-
+app.use(cors())
 app.use(bodyParser.json());
 
 app.get("/hello", (req, res) => {
@@ -24,13 +25,15 @@ app.post("/send-code", (req, res) => {
   const body = req.body;
   const email = body.email;
   const code = parseInt(Math.random() * 100000);
-  const data = {
-    email: code
-  }
-  writeToCodesFile(data);
 
-  console.log({email,  code });
-  res.status(200).json({status: "OK", message: `Code sent to email: ${email}`});
+  const codes = readCodesFromFile();
+
+  codes[email] = code;
+
+  writeToCodesFile(codes);
+
+
+  res.status(200).json({status: "OK", message: `Code sent to email: ${email}`, code});
 });
 
 
