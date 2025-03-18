@@ -3,6 +3,7 @@ import ViteExpress from "vite-express";
 import bodyParser from 'body-parser';
 
 import jobRouter from './routes/job.js';
+import { writeToCodesFile } from "./fileHandler/codeFileHandler.js";
 
 const app = express();
 
@@ -15,7 +16,6 @@ app.get("/hello", (req, res) => {
 
 app.post("/register", (req, res) => {
   const data = req.body;
-
   res.json({"status": "OK", message: `Successfully registered email: ${data.email}`});
 });
 
@@ -23,7 +23,12 @@ app.post("/register", (req, res) => {
 app.post("/send-code", (req, res) => {
   const body = req.body;
   const email = body.email;
-  const code = "12345";
+  const code = parseInt(Math.random() * 100000);
+  const data = {
+    email: code
+  }
+  writeToCodesFile(data);
+
   console.log({email,  code });
   res.status(200).json({status: "OK", message: `Code sent to email: ${email}`});
 });

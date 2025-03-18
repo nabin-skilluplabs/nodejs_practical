@@ -17,11 +17,11 @@ router.post("/", (req, res) => {
   });
 
 router.put("/:id", (req, res) => {
-    res.json({status: "OK", message: `Job with id ${req.params.id} updated successfully!`, data: body});
+    res.json({status: "OK", message: `Job with id ${req.params.id} updated successfully!`});
 });
 
 router.delete("/:id", (req, res) => {
-    res.json({status: "OK", message: `Job with id ${req.params.id} deleted successfully!`, data: body});
+    res.json({status: "OK", message: `Job with id ${req.params.id} deleted successfully!`});
 });
 
 export default router;
